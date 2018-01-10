@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Admin/_Layout.cshtml";
+}
+<h2>AddCarType</h2>
+
+<div ng-app="admin" ng-controller="carType">
+
+    <add name="CarType" btn-class="form-control"></add>
+
+    <search-item class="form-group"
+                 admin="carTypeHandler"
+                 search-init="true"
+                 btn-class="form-control"
+                 txt-class="form-control"></search-item>
+
+    <table class="table table-responsive table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Manufacturer
+                </th>
+                <th>
+                    Model
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    IsManual
+                </th>
+                <th>
+                    Daily Cost
+                </th>
+                <th>
+                    Late Fee
+                </th>
+                <th>
+                    Picture
+                </th>
+            </tr>
+        </thead>
+        <tr ng-repeat="cartype in carTypeHandler.getItems()" 
+            ng-form="carTypeForm"
+            ng-class="{'danger':carTypeForm.$invalid}">
+            <th>
+                <input ng-model="cartype.manufacturer" required maxlength="50"/>
+            </th>
+            <th>
+                <input ng-model="cartype.model" required maxlength="50" />
+            </th>
+            <th>
+                <input type="number" ng-model="cartype.year" required/>
+            </th>
+            <th>
+                <input type="checkbox" ng-model="cartype.ismanual"/>
+            </th>
+            <th>
+                <input type="number" ng-model="cartype.dailycost" required />
+            </th>
+            <th>
+                <input type="number" ng-model="cartype.latefee" required/>
+            </th>
+            <th>
+                <input type="button" ng-click="show=!show" value="Show" />
+                <div ng-show="show">
+                    <input type="file" file-upload="cartype.image" preview="cartype.newpic" />
+                    current Picture:
+                    <img ng-src="~/images/{{cartype.picture}}" class="img-responsive img-small" />
+                    <div ng-show="cartype.newpic">
+                        New Picture:
+                        <img ng-src="{{cartype.newpic}}" class="img-responsive img-small" />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <input type="button" value="Update" ng-disabled="carTypeForm.$invalid" ng-click="update(cartype)" />
+            </th>
+            <th>
+                <input type="button" value="Delete" ng-click="delete(cartype.id,$index)" />
+            </th>
+        </tr>
+    </table>
+
+</div>
+
+<script src="~/scripts/CustomScripts/Admin/CarTypeManager.js"></script>

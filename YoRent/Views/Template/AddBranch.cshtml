@@ -1,0 +1,57 @@
+﻿@(Layout = null);
+
+<form name="createBranch"
+      class="jumbotron form-horizontal"
+      novalidate
+      is-invalid="this"
+      ng-submit="createBranch.$valid && add(newBranch)">
+
+    <div class="form-group" 
+         ng-class="{'has-error': createBranch.name.isInvalid() }">
+        Name:
+        <input name="name"
+               ng-model="newBranch.name"
+               ng-init="newBranch.id = 1"
+               required
+               class="form-control" />
+
+        <div ng-messages="createBranch.name.$error"
+             class="text-danger"
+             ng-show="createBranch.name.isInvalid()">
+
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group"   
+         ng-class="{'has-error': createBranch.address.isInvalid() }">
+        Address:
+        <input name="address"
+               type="text"
+               ng-model="newBranch.address"
+               class="form-control"
+               required />
+
+        <div ng-messages="createBranch.address.$error"
+             class="text-danger"
+             ng-show="createBranch.address.isInvalid()">
+
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+       <input type="button" class="form-control" value="Get Address" ng-click="getLatLng(newBranch)" />
+    </div>
+
+    <div class="form-group">
+
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="ADD" class="form-control" />
+    </div>
+
+</form>

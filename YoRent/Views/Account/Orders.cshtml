@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+<div ng-app="user" ng-controller="orders">
+    <label class="control-label">
+        Show Only Active Orders:
+        <input type="checkbox" ng-model="onlyNew" class="checkbox-inline" />
+    </label>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Return Date
+                </th>
+                <th>
+                    Car
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in orders | orderBy: 'Start'|filter: filterOrders">
+                <th>
+                    {{order.Start.toLocaleDateString()}}
+                </th>
+                <th>
+                    {{order.End.toLocaleDateString()}}
+                </th>
+                <th>
+                    {{order.ReturnDate.toLocaleDateString()}}
+                </th>
+                <th>
+                    {{order.Manufacturer}}  {{order.Model}}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="~/scripts/CustomScripts/User/Orders.js"></script>

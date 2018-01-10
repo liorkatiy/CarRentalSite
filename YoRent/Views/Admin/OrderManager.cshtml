@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Admin/_Layout.cshtml";
+}
+<h2>OrderManager</h2>
+
+<div ng-app="admin" ng-controller="order">
+
+    <add name="Order" btn-class="form-control"></add>
+
+    <search-item class="form-group"
+                 admin="orderHandler"
+                 after="after"
+                 search-init="true"
+                 btn-class="form-control"
+                 txt-class="form-control"></search-item>
+
+    <label class="control-label">
+        Show Only Invalid Orders:
+        <input type="checkbox" ng-model="onlyInvalid" class="checkbox-inline" />
+    </label>
+
+    <table class="table table-responsive table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Car
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Return Date
+                </th>
+            </tr>
+        </thead>
+        <tr ng-repeat="order in orderHandler.getItems()|filter: showOnlyInvalid " 
+            ng-form="orderForm"
+            ng-class="{'danger': !order.isValid}">
+            <th>
+                <select ng-model="order.userid" 
+                        required>
+                    <option ng-value="user.id" 
+                            ng-repeat="user in userHandler.getItems()">
+                        {{user.username}}
+                    </option>
+
+                </select>
+            </th>
+            <th>
+                <select ng-model="order.carid" required>
+                    <option ng-value="car.registrationPlate"
+                            ng-repeat="car in carHandler.getItems()">
+                        {{car.registrationPlate}}
+                    </option>
+
+                </select>
+            </th>
+            <th>
+                <input type="date" ng-model="order.startdate" required />
+            </th>
+            <th>
+                <input type="date" ng-model="order.enddate" required />
+            </th>
+            <th>
+                <input type="date" ng-model="order.returndate" />
+            </th>
+            <th>
+                <input type="button" value="DELETE" ng-click="delete(order.id,$index)" />
+            </th>
+            <th>
+                <input type="button" value="UPDATE" ng-disabled="orderForm.$invalid" ng-click="update(order)" />
+            </th>
+        </tr>
+    </table>
+</div>
+
+
+<script src="~/scripts/CustomScripts/Admin/OrderManager.js"></script>

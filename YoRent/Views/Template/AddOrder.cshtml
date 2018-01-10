@@ -1,0 +1,110 @@
+﻿@(Layout = null)
+
+<form name="createOrder"
+      class="jumbotron form-horizontal"
+      novalidate
+      is-invalid="this"
+      ng-submit="createOrder.$valid && add(newOrder)">
+    <pre>{{createOrder.user|json}}</pre>
+    <div class="form-group" ng-class="{'has-error': createOrder.startDate.isInvalid() }">
+        Start Date:
+        <input name="startDate"
+               type="date"
+               ng-model="newOrder.startDate"
+               required
+               class="form-control" />
+
+        <div ng-messages="createOrder.startDate.$error"
+             class="text-danger"
+             ng-show="createOrder.startDate.isInvalid()">
+
+            <span ng-message="date">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': createOrder.EndDate.isInvalid() }">
+        End Date:
+        <input type="date"
+               name="EndDate"
+               ng-model="newOrder.enddate"
+               class="form-control"
+               required />
+
+        <div ng-messages="createOrder.EndDate.$error"
+             class="text-danger"
+             ng-show="createOrder.EndDate.isInvalid()">
+            <span ng-message="date">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': createOrder.startdate.isInvalid() }">
+        Return Date:
+        <input type="date"
+               name="returnDate"
+               ng-model="newOrder.returndate"
+               class="form-control" />
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': createOrder.user.isInvalid() }">
+
+        <label for="user" class="control-label">Users:</label>
+        <search-item admin="userHandler"
+                     search-init="true"
+                     btn-class="form-control"
+                     txt-class="form-control">
+        </search-item>
+
+        <select name="user"
+                ng-model="newOrder.userid"
+                class="form-control"
+                multiple
+                required>
+
+            <option ng-repeat="user in userHandler.getItems()"
+                    ng-value="user.id">
+                {{user.username}}
+            </option>
+
+        </select>
+
+        <div ng-messages="createOrder.user.$error"
+             class="text-danger"
+             ng-show="createOrder.user.isInvalid()">
+
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': createOrder.car.isInvalid() }">
+        Car:
+        <search-item admin="carHandler"
+                     search-init="true"
+                     btn-class="form-control"
+                     txt-class="form-control">
+        </search-item>
+        <select name="car"
+                ng-model="newOrder.carid"
+                required
+                multiple
+                class="form-control">
+            <option ng-value="car.registrationPlate"
+                    label="{{car.registrationPlate}}" ng-repeat="car in carHandler.getItems()" />
+        </select>
+
+        <div ng-messages="createOrder.car.$error"
+             class="text-danger"
+             ng-show="createOrder.car.isInvalid()">
+
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="ADD" class="form-control" />
+    </div>
+
+</form>

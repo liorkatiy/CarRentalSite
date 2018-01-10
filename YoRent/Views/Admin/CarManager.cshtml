@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Admin/_Layout.cshtml";
+}
+<h2>AddCar</h2>
+
+<div ng-app="admin" ng-controller="car">
+
+   <add name="Car" btn-class="form-control"></add>
+
+    <search-item admin="carHandler"  
+                 after="after"  
+                 search-init="true"
+                 btn-class="form-control" 
+                 txt-class="form-control">
+    </search-item>
+    <div>
+        <label class="control-label">
+            Show Only Invalid Cars:
+            <input type="checkbox" ng-model="onlyInvalid" class="checkbox-inline" />
+        </label>
+
+        <table class="table table-responsive table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Registration Plate</th>
+                    <th>KM</th>
+                    <th>Available</th>
+                    <th>Type</th>
+                    <th>Branch</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="car in carHandler.getItems() | filter: showOnlyValid " 
+                ng-class="{'danger':carForm.$invalid}"
+                ng-form="carForm">
+                <td>
+                    <input type="text" readonly ng-model="car.registrationPlate" required>
+                </td>
+                <td>
+                    <input type="number" ng-model="car.km" required/>
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="car.available" />
+                </td>
+                <td>
+                    <select ng-model="car.cartype" required>
+                        <option ng-repeat="type in carTypeHandler.getItems()" ng-selected="type.id==car.cartype" ng-value="type.id">
+                            {{type.manufacturer}} {{type.model}} {{type.year}}
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <select ng-model="car.branch" required>
+                        <option ng-repeat="branch in branches" 
+                                ng-selected="car.branch==branch.id" 
+                                ng-value="branch.id">{{branch.name}}</option>
+                    </select>                    
+                </td>
+                <td>
+                    <input type="button" value="Update" ng-disabled="carForm.$invalid" ng-click="update(car)"/>
+                </td>
+                <td>
+                    <input type="button" value="Delete" ng-click="delete(car.registrationPlate,$index)"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script src="~/scripts/CustomScripts/Admin/CarManager.js"></script>

@@ -1,0 +1,77 @@
+﻿<h2>Home</h2>
+<div ng-app="home" ng-controller="homeController">
+
+    <form name="searchForm" class="form-horizontal media" ng-submit="submit()">
+        <div class="pull-right">
+            <div id="map" style="width:400px;height:400px;"></div>
+            @* cant put the style in diffrent class map will not show *@
+        </div>
+
+        <div class="container media-body">
+            <div class="form-group">
+                <select name="branch"
+                        ng-model="search.branch"
+                        ng-change="setMap()"
+                        required
+                        class="form-control">
+                    <option ng-repeat="branch in branches"
+                            ng-value="branch.id"
+                            ng-init="$first ? setMap(branch): ''">
+                        {{branch.name}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="date"
+                       name="start"
+                       ng-model="search.start"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required
+                       class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="date"
+                       name="end"
+                       ng-model="search.end"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required
+                       class="form-control" />
+
+            </div>
+
+            <div class="form-group">
+                <input name="manufacturer"
+                       ng-model="search.manufacturer"
+                       placeholder="Manufacturer"
+                       class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input name="model"
+                       ng-model="search.model"
+                       type="text"
+                       placeholder="Model"
+                       class="form-control" />
+            </div>
+            <div class="form-group">
+                <input name="year"
+                       ng-model="search.year"
+                       type="number"
+                       placeholder="Year"
+                       class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit"
+                       ng-disabled="(searchForm.$invalid || !dateValid())"
+                       value="Search"
+                       class="form-control" />
+            </div>
+        </div>
+    </form>
+</div>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2VvVteLa-WHxZ5cxabyRawwBOjuk1Krs&callback=initMap">
+</script>
+<script src="~/scripts/CustomScripts/Home.js"></script>

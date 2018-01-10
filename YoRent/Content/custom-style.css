@@ -1,0 +1,40 @@
+﻿
+/* set a nav bar just below the main one*/
+.nd-nav {
+    margin-top: 50px;
+    margin-right: 20px;
+}
+
+/* same size for all images*/
+.img-size {
+    width: 400px;
+    height: auto;
+    max-height: 300px;
+}
+
+/*images for the admin car type editing*/
+.img-small {
+    width: 200px;
+    height: 150px;
+}
+
+/*thicker lines*/
+hr.thick {
+    border-width: 10px;
+    border-color: black;
+}
+
+/*white background*/
+.whileBG{
+   background-color:white;
+}
+
+/*blue background*/
+.brownBG{
+    background-color:#b76161;
+}
+
+/*make sure the navbar always on top*/
+.nav-topZ{
+    z-index:90000;
+}

@@ -1,0 +1,67 @@
+﻿@(Layout = null)
+
+<form 
+      name="createCar" 
+      class="jumbotron form-horizontal" 
+      novalidate 
+      ng-submit="createCar.$valid && add(newCar)">
+
+    <div class="form-group">
+        Registration Plate:
+        <input 
+               name="registrationplate"
+               ng-model="newCar.registrationplate" 
+               required
+               class="form-control" />
+    </div>
+
+    <div class="form-group">
+        KM:
+        <input 
+               type="number" 
+               name="km"
+               ng-model="newCar.km" 
+               class="form-control" 
+               required/>
+    </div>
+
+    <div class="form-group">
+        <label for="cartypeSelect" class="control-label">Car Type:</label>
+        <search-item admin="carTypeHandler"
+                     search-init="true"
+                     btn-class="form-control"
+                     txt-class="form-control"></search-item>
+        <select 
+                name="cartypeSelect"
+                ng-model="newCar.cartype" 
+                id="cartype" 
+                class="form-control" 
+                multiple 
+                required>
+
+            <option 
+                    ng-repeat="cartype in carTypeHandler.getItems()| orderBy: 'model'"
+                    ng-value="cartype.id"
+                    >
+                {{cartype.manufacturer}} {{cartype.model}} {{cartype.year}}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        Branch:
+        <select 
+                name="branch"
+                ng-model="newCar.branch" 
+                required
+                class="form-control">
+            <option ng-value="branch.id" 
+                    label="{{branch.name}}" ng-repeat="branch in branches" />
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="ADD" class="form-control"/>
+    </div>
+
+</form>

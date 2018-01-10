@@ -1,0 +1,26 @@
+﻿<h2>BuyCar</h2>
+<form ng-app="buyCar" ng-controller="buyCar">
+
+    <div class="media">
+        <div class="pull-left">
+            <img ng-src="~/images/{{car.picture}}"
+                 alt="No Pic"
+                 class="img-rounded img-responsive img-size" />
+        </div>
+        <div class="media-body">
+            manufacturer: {{car.manufacturer}}<br />
+            Model: {{car.model}}<br />
+            Is Manual: {{car.ismanual}}<br />
+            Year: {{car.year}}<br />
+            Daily Cost: {{car.dailycost}}<br />
+            Late Fee: {{car.latefee}}<br />
+            Total Cost: <span>{{car.totalcost}}</span><br />
+        </div>
+    </div>
+    <hr class="thick" />
+
+
+    <input placeholder="Credit Card" ng-model="creditCard" />
+    <input type="button" ng-click="buyCar()" value="BUY" />
+</form>
+<script src="~/scripts/CustomScripts/User/BuyCar.js"></script>

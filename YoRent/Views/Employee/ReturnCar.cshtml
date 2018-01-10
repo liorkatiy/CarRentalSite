@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "ReturnCar";
+}
+
+<h2>ReturnCar</h2>
+<div ng-app="employee" ng-controller="returnCar">
+    <div class="form-group">
+        <label class="control-label">User ID Card:</label>
+        <input ng-model="search" class="form-control" />
+    </div>
+    <div class="form-group">
+    <input type="button" value="GetOrders" ng-click="getOrders()" class="form-control"/>
+</div>
+    <table class="table table-hover table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Start
+                </th>
+                <th>
+                    End
+                </th>
+                <th>
+                    Car
+                </th>
+                <th>
+                    Total Cost
+                </th>
+            </tr>
+        </thead>
+        <tr ng-repeat="order in orders">
+            <th>
+                {{order.FullName}}
+            </th>
+            <th>
+                {{order.Start.toLocaleDateString()}}
+            </th>
+            <th>
+                {{order.End.toLocaleDateString()}}
+            </th>
+            <th>
+                {{order.Manufacturer}} {{order.Model}}
+            </th>
+            <th>
+                {{order.totalcost}}
+            </th>
+            <th>
+                <input type="button" ng-click="returnCar($index,order.ID)" value="Return" />
+            </th>
+        </tr>
+    </table>
+</div>
+<script src="~/scripts/CustomScripts/Employee/ReturnCar.js"></script>

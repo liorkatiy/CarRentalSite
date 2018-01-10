@@ -1,0 +1,167 @@
+﻿@model YoRent.Models.UserRegisterValidation
+    <h2>Register</h2>
+<div ng-app="formValidators">
+
+    <form action="/account/register"
+          method="post"
+          name="registerForm"
+          novalidate="novalidate"
+          class="form-horizontal"
+          is-invalid="this">
+        
+        @Html.AntiForgeryToken()
+
+        <div class="form-group col-md-10"
+             ng-class="{'has-error': registerForm.username.isInvalid() }">
+
+            <label for="username">User Name:</label>
+            <input name="username"
+                   validate-ajax="/request/UserNameAvailable"
+                   ng-model="username"
+                   ng-model-options="{updateOn: 'blur'}"
+                   ng-init="username='@(Model.UserName)'"
+                   class="form-control"
+                   
+                   required />
+
+            <div ng-messages="registerForm.username.$error"
+                 class="text-danger"
+                 ng-show="registerForm.username.$dirty">
+
+                <span ng-message="validateAjax">User Name Is In Use</span>
+                <span ng-message="required">Required</span>
+            </div>
+        </div>
+
+        <div class="form-group col-md-10"
+             ng-class="{'has-error': registerForm.fullname.isInvalid() }">
+
+            <label for="fullname">Full Name:</label>
+            <input name="fullname"
+                   id="fullname"
+                   ng-model="fullname"
+                   ng-model-options="{updateOn: 'blur'}"
+                   ng-init="fullname='@(Model.FullName)'"
+                   class="form-control"
+                  
+                   required />
+
+            <div ng-messages="registerForm.fullname.$error"
+                 class="text-danger"
+                 ng-show="registerForm.fullname.$dirty">
+
+                <span ng-message="required">Required</span>
+            </div>
+        </div>
+
+        <div class="form-group col-md-10"
+             ng-class="{'has-error': registerForm.password.isInvalid() }">
+            <label for="password">Password:</label>
+            <input type="password"
+                   name="password"
+                   ng-model="password"
+                   ng-model-options="{updateOn: 'blur'}"
+                   ng-init="password='@(Model.Password)'"
+                   class="form-control"
+                   required
+                   ng-minlength="6"
+                   ng-maxlength="20"
+                    />
+
+            <div ng-messages="registerForm.password.$error"
+                 class="text-danger"
+                 ng-show="registerForm.password.$dirty">
+
+                <span ng-message="required">Required</span>
+                <span ng-message="minlength">Password To Short</span>
+                <span ng-message="maxlength">Password To Long</span>
+
+            </div>
+
+        </div>
+
+        <div class="form-group col-md-10">
+
+            <label for="Birth Date">Birth Date: </label>
+            <input type="date"
+                   name="birthdate"
+                   ng-model="birthdate"
+                   ng-model-options="{updateOn: 'blur'}"
+                   ng-init="birthdate='@(Model.BirthDate)'"
+                   class="form-control" />
+        </div>
+
+        <div class="form-group col-md-10"
+             ng-class="{'has-error': registerForm.idcard.isInvalid() }">
+
+            <label for="idcard">ID Card: </label>
+            <input name="idcard"
+                   ng-model="idcard"
+                   ng-model-options="{updateOn: 'blur'}"
+                   ng-init="idcard='@(Model.IdCard)'"
+                   class="form-control"
+                   validate-ajax="/request/IdCardAvailable"
+                   required
+                   validate-id-card
+                    />
+
+            <div ng-messages="registerForm.idcard.$error"
+                 class="text-danger"
+                 ng-show="registerForm.idcard.$dirty">
+
+                <span ng-message="required">Required</span>
+                <span ng-message="validateIdCard">Invalid ID</span>
+                <span ng-message="validateAjax">Id Card Already In In Use</span>
+            </div>
+        </div>
+
+        <div class="form-group col-md-10"
+             ng-class="{'has-error': registerForm.sex.isInvalid()}">
+            <label for="Sex">Sex: </label>
+            <select name="sex"
+                    ng-model="sex"
+                    ng-init="sex = @((byte)Model.Sex)"
+                    required
+                    >
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+                <option value="2">Other</option>             
+            </select>
+
+            <div ng-messages="registerForm.sex.$error"
+                 class="text-danger"
+                 ng-show="registerForm.sex.$dirty">
+
+                <span ng-message="required">Required</span>
+            </div>
+        </div>
+
+        <div class="form-group col-md-10"
+             ng-class="{'has-error': registerForm.email.isInvalid() }">
+            <label for="email">Email: </label>
+            <input name="email"
+                   type="email"
+                   ng-model="email"
+                   ng-model-options="{updateOn: 'blur'}"
+                   ng-init="email='@(Model.Email)'"
+                   class="form-control"
+                   required />
+
+            <div ng-messages="registerForm.email.$error"
+                 class="text-danger"
+                 ng-show="registerForm.email.$dirty">
+
+                <span ng-message="required">Required</span>
+                <span ng-message="email">Not Email</span>
+            </div>
+        </div>
+
+        <div class="form-group col-md-10 col-md-offset-2">
+            <input type="submit" value="Register" class="btn btn-default" ng-disabled="registerForm.$invalid" ng-click="sendForm()" />
+        </div>
+    </form>
+
+</div>
+
+<script src="~/scripts/angular-messages.min.js"></script>
+<script src="~/scripts/CustomScripts/formValidators.js"></script>

@@ -1,0 +1,125 @@
+﻿@{
+    Layout = "~/Views/Admin/_Layout.cshtml";
+}
+<h2>UserManager</h2>
+
+
+<div ng-app="admin" ng-controller="user">
+
+    <add name="User" btn-class="form-control"></add>
+
+    <search-item 
+                 class="form-group" 
+                 after="after" 
+                 admin="userHandler"
+                 search-init="true" 
+                 btn-class="form-control" 
+                 txt-class="form-control"></search-item>
+
+    <table class="table table-responsive table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    User Name
+                </th>
+                <th>
+                    Password
+                </th>
+                <th>
+                    Full Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Id Card
+                </th>
+                <th>
+                    Birth Date
+                </th>
+                <th>
+                    Sex
+                </th>
+                <th>
+                    Premission
+                </th>
+            </tr>
+        </thead>
+        <tr ng-repeat="user in userHandler.getItems()" 
+            ng-form="userForm"
+            ng-class="{'danger': userForm.$invalid }">
+            <th>
+                <input 
+                       name="username"
+                       type="text" 
+                       ng-model="user.username"
+                       ng-model-options="{updateOn: 'blur'}" 
+                       required/>
+            </th>
+            <th>
+                <input 
+                       name="password" 
+                       type="text" 
+                       ng-model="user.password"/>
+            </th>
+            <th>
+                <input 
+                       name="fullname" 
+                       type="text" 
+                       ng-model="user.fullname" 
+                       ng-model-options="{updateOn: 'blur'}" 
+                       required/>
+            </th>
+            <th>
+                <input name="email"
+                       type="email"
+                       ng-model="user.email"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </th>
+            <th>
+                <input name="idcard"
+                       type="text"
+                       ng-model="user.idcard"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required
+                       validate-id-card />
+            </th>
+            <th>
+                <input 
+                       name="birthdate" 
+                       type="date" 
+                       ng-model="user.birthdate"/>
+            </th>
+            <th>
+                <select name="sex"
+                        ng-model="user.sex"
+                        ng-model-options="{updateOn: 'blur'}"
+                        required>
+                    <option ng-value="0" label="Male" ng-selected="{{user.sex==0}}"></option>
+                    <option ng-value="1" label="Female" ng-selected="{{user.sex==1}}"></option>
+                    <option ng-value="2" label="Other" ng-selected="{{user.sex==2}}"></option>
+                </select>
+            </th>
+            <th>
+                <select name="premission"
+                        ng-model="user.permission"
+                        ng-model-options="{updateOn: 'blur'}"
+                        required>
+                    <option ng-value="0" label="User" ng-selected="{{user.permission==0}}"></option>
+                    <option ng-value="1" label="Employee" ng-selected="{{user.permission==1}}"></option>
+                    <option ng-value="2" label="Admin" ng-selected="{{user.permission==2}}"></option>
+                    <option ng-value="3" label="Karpas" ng-selected="{{user.permission==3}}"></option>
+                </select>
+            </th>
+            <th>
+                <input type="button" value="UPDATE" ng-disabled="userForm.$invalid" ng-click="update(user)" />
+            </th>
+            <th>
+                <input type="button" value="DELETE" ng-click="delete(user.id,$index)" />
+            </th>
+        </tr>
+    </table>
+</div>
+
+<script src="~/scripts/CustomScripts/Admin/UserManager.js"></script>

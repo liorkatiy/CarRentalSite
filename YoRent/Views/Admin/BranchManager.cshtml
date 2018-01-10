@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Admin/_Layout.cshtml";
+}
+
+<h2>BranchManager</h2>
+
+<div ng-app="admin" ng-controller="branch">
+
+    <add name="branch" btn-class="form-control"></add>
+
+    <search-item class="form-group"
+                 admin="branchHandler"
+                 search-init="true"
+                 after="after"
+                 btn-class="form-control"
+                 txt-class="form-control"></search-item>
+
+    <table class="table table-responsive table-bordered" >
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Map
+                </th>
+            </tr>
+        </thead>
+        <tr ng-repeat="branch in branchHandler.getItems()"  ng-form="branchForm">        
+            <th><input type="text" ng-model="branch.name" /></th>
+            <th>
+                <input type="text" 
+                       ng-model="branch.address"
+                       class="form-control"/>
+                <input type="button" 
+                       class="form-control"
+                       ng-click="getLatLng(branch)" value="Get Address" />
+            </th>
+            <td>
+                <input type="button" value="Update" ng-disabled="isValid(branch)" ng-click="update(branch)" />
+            </td>
+            <td>
+                <input type="button" value="Delete" ng-click="delete(branch.id,$index)" />
+            </td>
+        </tr>
+    </table>
+</div>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2VvVteLa-WHxZ5cxabyRawwBOjuk1Krs&callback=initMap">
+</script>
+
+<script src="~/scripts/CustomScripts/Admin/BranchManager.js"></script>

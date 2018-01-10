@@ -1,0 +1,100 @@
+﻿@(Layout = null)
+
+<form name="createCarType"
+      class="jumbotron form-horizontal"
+      novalidate
+      is-invalid="this"
+      ng-submit="createCarType.$valid && add(newCarType)">
+
+    <div class="media">
+
+        <div class="pull-right">
+            <img ng-show="newCarType.image" class="img-responsive img-size" ng-src="{{previewimage}}" />
+        </div>
+
+        <div class="container media-body">
+            <div class="form-group" ng-class="{'has-error': createCarType.model.isInvalid() }">
+                model:
+                <input name="model" ng-model="newCarType.model" class="form-control" required />
+
+                <div ng-messages="createCarType.model.$error"
+                     class="text-danger"
+                     ng-show="createCarType.model.isInvalid()">
+
+                    <span ng-message="required">Required</span>
+                </div>
+
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': createCarType.manufacturer.isInvalid() }">
+                manufacturer:
+                <input name="manufacturer" ng-model="newCarType.manufacturer" class="form-control" required />
+
+                <div ng-messages="createCarType.manufacturer.$error"
+                     class="text-danger"
+                     ng-show="createCarType.manufacturer.isInvalid()">
+
+                    <span ng-message="required">Required</span>
+                </div>
+
+            </div>
+
+            <div class="form-group"
+                 ng-class="{'has-error': createCarType.year.isInvalid() }">
+                year:
+                <input name="year" type="number" ng-model="newCarType.year" class="form-control" required />
+
+                <div ng-messages="createCarType.year.$error"
+                     class="text-danger"
+                     ng-show="createCarType.year.isInvalid()">
+
+                    <span ng-message="required">Required</span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                IsManual:
+                <input name="ismanual" type="checkbox" ng-model="newCarType.ismanual" class="form-control"/>
+            </div>
+
+            <div class="form-group"
+                 ng-class="{'has-error': createCarType.dailycost.isInvalid() }">
+                Daily Cost:
+                <input name="dailycost" type="number" ng-model="newCarType.dailycost" class="form-control" required />
+
+                <div ng-messages="createCarType.dailycost.$error"
+                     class="text-danger"
+                     ng-show="createCarType.dailycost.isInvalid()">
+
+                    <span ng-message="required">Required</span>
+                </div>
+
+            </div>
+
+            <div class="form-group"
+                 ng-class="{'has-error': createCarType.latefee.isInvalid() }">
+                Late Fee:
+                <input name="latefee" type="number" ng-model="newCarType.latefee" class="form-control" required />
+
+                <div ng-messages="createCarType.latefee.$error"
+                     class="text-danger"
+                     ng-show="createCarType.latefee.isInvalid()">
+
+                    <span ng-message="required">Required</span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                Picture:
+                <input type="file" accept="image/*" file-upload="newCarType.image" preview="previewimage" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="ADD" class="form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+

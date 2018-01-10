@@ -1,0 +1,106 @@
+﻿@(Layout=null)
+
+<form name="CreateUser"
+      class="jumbotron form-horizontal"
+      novalidate
+      is-invalid="this"
+      ng-submit="CreateUser.$valid && add(user)">
+
+    <div class="form-group"
+         ng-class="{'has-error': CreateUser.fullname.isInvalid() }">
+        Full Name:
+        <input name="fullname" ng-model="user.fullname" class="form-control" required/>
+
+        <div ng-messages="CreateUser.fullname.$error"
+             class="text-danger"
+             ng-show="CreateUser.fullname.isInvalid()">
+
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': CreateUser.username.isInvalid() }">
+        User Name:
+        <input name="username" ng-model="user.username" class="form-control" required validate-ajax="/request/UserNameAvailable"/>
+
+        <div ng-messages="CreateUser.username.$error"
+             class="text-danger"
+             ng-show="CreateUser.username.isInvalid()">
+
+            <span ng-message="validateAjax">User Name Is In Use</span>
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': CreateUser.password.isInvalid() }">
+        Password:
+        <input name="password" type="text" ng-model="user.password" class="form-control" required />
+
+        <div ng-messages="CreateUser.password.$error"
+             class="text-danger"
+             ng-show="CreateUser.password.isInvalid()">
+
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': CreateUser.email.isInvalid() }">
+        Email:
+        <input name="email" type="email" ng-model="user.email" class="form-control" required />
+
+        <div ng-messages="CreateUser.email.$error"
+             class="text-danger"
+             ng-show="CreateUser.email.isInvalid()">
+
+            <span ng-message="required">Required</span>
+            <span ng-message="email">Invalid Email</span>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': CreateUser.idcard.isInvalid() }">
+        Id Card:
+        <input name="idcard" type="text" ng-model="user.idcard" class="form-control" required validate-id-card validate-ajax="/request/IdCardAvailable"/>
+
+        <div ng-messages="CreateUser.idcard.$error"
+             class="text-danger"
+             ng-show="CreateUser.idcard.isInvalid()">
+
+            <span ng-message="required">Required</span>
+            <span ng-message="validateIdCard">Invalid IdCard</span>
+            <span ng-message="validateAjax">Id Card Already In In Use</span>
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        Birth Date:
+        <input type="date" ng-model="user.birthdate" class="form-control" />
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': CreateUser.sex.isInvalid() }">
+        Sex:
+        <select name="sex" ng-model="user.sex" class="form-control">
+            <option value="0" label="Male"></option>
+            <option value="1" label="Female"></option>
+            <option value="2" label="Other"></option>
+        </select>
+
+        <div ng-messages="CreateUser.sex.$error"
+             class="text-danger"
+             ng-show="CreateUser.sex.isInvalid()">
+
+            <span ng-message="required">Required</span>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="ADD" class="form-control" />
+    </div>
+
+</form>
